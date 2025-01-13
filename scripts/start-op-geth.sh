@@ -12,11 +12,6 @@ if [ -n "${L2_NETWORK_ID}" ]; then
   export EXTENDED_ARG="${EXTENDED_ARG:-} --networkid=${L2_NETWORK_ID}"
 fi
 
-# Init genesis if custom chain
-if [ -n "${IS_CUSTOM_CHAIN}" ]; then
-  geth init --state.scheme=hash --datadir="$BEDROCK_DATADIR" /chainconfig/genesis.json
-fi
-
 # Determine syncmode based on NODE_TYPE
 if [ -z "$OP_GETH__SYNCMODE" ]; then
   if [ "$NODE_TYPE" = "full" ]; then
@@ -63,4 +58,3 @@ exec geth \
   --syncmode="$OP_GETH__SYNCMODE" \
   --gcmode="$NODE_TYPE" \
   $EXTENDED_ARG $@
-
